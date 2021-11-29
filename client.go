@@ -458,6 +458,9 @@ func (client *client) RefreshBrokers(addrs []string) error {
 		delete(client.brokers, broker.ID())
 	}
 
+	for _, seedBroker := range client.seedBrokers {
+		_ = seedBroker.Close()
+	}
 	client.seedBrokers = nil
 	client.deadSeeds = nil
 
